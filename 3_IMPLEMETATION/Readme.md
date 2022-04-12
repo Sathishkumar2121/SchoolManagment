@@ -1,94 +1,105 @@
 import pickle
 import os
 import pathlib
+
+
 class Account:
     acc_no = 0
     name = ''
-    deposit=0
+    deposit = 0
     type = ''
-    
+
     def create_account(self):
-        self.acc_no= int(input("Enter the account no : "))
+        self.acc_no = int(input("Enter the account no : "))
         self.name = input("Enter the account holder name : ")
         self.type = input("Ente the type of account [C/S] : ")
-        self.deposit = int(input("Enter The Initial amount(minimum 500 for Saving and 1000 for current: "))
+        print("Enter The Initial amount")
+        self.deposit = int(input("minimum 500 for Saving and 1000 for current: "))
         print("\n\nCongrats! New Account Created")
-    
+
     def show_account(self):
         print("Account acc_nober : ", self.acc_no)
         print("Account Holder Name : ", self.name)
         print("Type of Account", self.type)
         print("Balance : ", self.deposit)
-    
+
     def modify_account(self):
         print("Account acc_nober : ", self.acc_no)
         self.name = input("Modify Account Holder Name :")
         self.type = input("Modify type of Account :")
         self.deposit = int(input("Modify Balance :"))
-        
+
     def deposit_amount(self, amount):
         self.deposit += amount
-    
+
     def withdraw_amount(self, amount):
         self.deposit -= amount
-    
+
     def report(self):
-        print(self.acc_no, " ", self.name , " ",self.type, " ", self.deposit)
-    
+        print(self.acc_no, " ", self.name, " ", self.type, " ", self.deposit)
+
     def get_account_no(self):
         return self.acc_no
+
     def get_acccount_holder_name(self):
         return self.name
+
     def get_account_type(self):
         return self.type
+
     def get_deposit(self):
         return self.deposit
-    
+
+
 def intro():
     print("\t\t\t\t\tBANK MANAGEMENT SYSTEM developed by JAI GORA")
     input()
+
 
 def write_account():
     account = Account()
     account.create_account()
     write_accounts_file(account)
 
+
 def write_account():
     file = pathlib.Path("accounts.data")
-    if file.exists ():
+    if file.exists():
         infile = open('accounts.data', 'rb')
         mylist = pickle.load(infile)
-        for item in mylist :
-            print(item.acc_no, " ", item.name, " ", item.type, " ", item.deposit )
+        for item in mylist:
+            print(item.acc_no, " ", item.name, " ", item.type, " ", item.deposit)
         infile.close()
-    else :
+    else:
         print("No records to display")
-        
 
-def display_sp(acc_no): 
+
+def display_sp(acc_no):
     file = pathlib.Path("accounts.data")
-    if file.exists ():
+    found = False
+    if file.exists():
         infile = open('accounts.data', 'rb')
         mylist = pickle.load(infile)
         infile.close()
-        found = False
+
         for item in mylist:
             if item.acc_no == acc_no:
                 print("Your account Balance is = ", item.deposit)
                 found = True
     else:
         print("No records to Search")
-    if not found :
+    if not found:
         print("No existing record with this acc_nober")
 
-def deposit_and_withdraw(acc_no1, acc_no2): 
+
+def deposit_and_withdraw(acc_no1, acc_no2):
     file = pathlib.Path("accounts.data")
-    if file.exists ():
+    if file.exists():
         infile = open('accounts.data', 'rb')
         mylist = pickle.load(infile)
         infile.close()
         os.remove('accounts.data')
-        for item in mylist :
+        for item in mylist:
             if item.acc_no == acc_no1:
                 if acc_no2 == 1:
                     amount = int(input("Enter the amount to deposit : "))
@@ -97,20 +108,21 @@ def deposit_and_withdraw(acc_no1, acc_no2):
                 elif acc_no2 == 2:
                     amount = int(input("Enter the amount to withdraw : "))
                     if amount <= item.deposit:
-                        item.deposit -=amount
+                        item.deposit -= amount
                     else:
                         print("Amount is large! ***ERROR 404***")
-                
-    else :
+
+    else:
         print("No records to Search")
     outfile = open('newaccounts.data', 'wb')
     pickle.dump(mylist, outfile)
     outfile.close()
     os.rename('newaccounts.data', 'accounts.data')
 
+
 def delete_account(acc_no):
     file = pathlib.Path("accounts.data")
-    if file.exists ():
+    if file.exists():
         infile = open('accounts.data', 'rb')
         oldlist = pickle.load(infile)
         infile.close()
@@ -123,10 +135,11 @@ def delete_account(acc_no):
         pickle.dump(newlist, outfile)
         outfile.close()
         os.rename('newaccounts.data', 'accounts.data')
-     
+
+
 def modify_account(acc_no):
     file = pathlib.Path("accounts.data")
-    if file.exists ():
+    if file.exists():
         infile = open('accounts.data', 'rb')
         oldlist = pickle.load(infile)
         infile.close()
@@ -136,29 +149,31 @@ def modify_account(acc_no):
                 item.name = input("Enter the Account Holder Name : ")
                 item.type = input("Enter the Account Type (C/S) : ")
                 item.deposit = int(input("Enter the Amount : "))
-        
+
         outfile = open('newaccounts.data', 'wb')
         pickle.dump(oldlist, outfile)
         outfile.close()
         os.rename('newaccounts.data', 'accounts.data')
-  
-def write_accounts_file(account): 
-    
+
+
+def write_accounts_file(account):
     file = pathlib.Path("accounts.data")
-    if file.exists ():
+    if file.exists():
         infile = open('accounts.data', 'rb')
         oldlist = pickle.load(infile)
         oldlist.append(account)
         infile.close()
         os.remove('accounts.data')
-    else :
+    else:
         oldlist = [account]
     outfile = open('newaccounts.data', 'wb')
     pickle.dump(oldlist, outfile)
     outfile.close()
     os.rename('newaccounts.data', 'accounts.data')
-ch= ''
-acc_no= 0
+
+
+ch = ''
+acc_no = 0
 intro()
 
 while ch != 8:
@@ -175,7 +190,7 @@ while ch != 8:
     ch = input()
     if ch == '1':
         write_account()
-    elif ch =='2':
+    elif ch == '2':
         acc_no = int(input("\tEnter The account No. : "))
         deposit_and_withdraw(acc_no, 1)
     elif ch == '3':
@@ -185,9 +200,9 @@ while ch != 8:
         acc_no = int(input("\tEnter The account No. : "))
         display_sp(acc_no)
     elif ch == '5':
-        write_account();
+        write_account()
     elif ch == '6':
-        acc_no =int(input("\tEnter The account No. : "))
+        acc_no = int(input("\tEnter The account No. : "))
         delete_account(acc_no)
     elif ch == '7':
         acc_no = int(input("\tEnter The account No. : "))
@@ -195,8 +210,8 @@ while ch != 8:
     elif ch == '8':
         print("\tThanks for using bank managemnt system")
         break
-    else :
+    else:
         print("Please enter the valid field")
-    
-    ch = input("Press <ENTER> ") 
-    
+
+    ch = input("Press <ENTER> ")
+
