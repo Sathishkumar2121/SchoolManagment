@@ -7,53 +7,53 @@ class Account:
     deposit=0
     type = ''
     
-    def createAccount(self):
+    def create_account(self):
         self.accNo= int(input("Enter the account no : "))
         self.name = input("Enter the account holder name : ")
         self.type = input("Ente the type of account [C/S] : ")
         self.deposit = int(input("Enter The Initial amount(minimum 500 for Saving and 1000 for current: "))
         print("\n\nCongrats! New Account Created")
     
-    def showAccount(self):
-        print("Account Number : ", self.accNo)
+    def show_account(self):
+        print("Account accNober : ", self.accNo)
         print("Account Holder Name : ", self.name)
         print("Type of Account", self.type)
         print("Balance : ", self.deposit)
     
-    def modifyAccount(self):
-        print("Account Number : ", self.accNo)
+    def modify_account(self):
+        print("Account accNober : ", self.accNo)
         self.name = input("Modify Account Holder Name :")
         self.type = input("Modify type of Account :")
         self.deposit = int(input("Modify Balance :"))
         
-    def depositAmount(self, amount):
+    def deposit_amount(self, amount):
         self.deposit += amount
     
-    def withdrawAmount(self, amount):
+    def withdraw_amount(self, amount):
         self.deposit -= amount
     
     def report(self):
         print(self.accNo, " ", self.name , " ",self.type, " ", self.deposit)
     
-    def getAccountNo(self):
+    def get_account_no(self):
         return self.accNo
-    def getAcccountHolderName(self):
+    def get_acccount_holder_name(self):
         return self.name
-    def getAccountType(self):
+    def get_account_type(self):
         return self.type
-    def getDeposit(self):
+    def get_deposit(self):
         return self.deposit
     
 def intro():
     print("\t\t\t\t\tBANK MANAGEMENT SYSTEM developed by JAI GORA")
     input()
 
-def writeAccount():
+def write_account():
     account = Account()
-    account.createAccount()
-    writeAccountsFile(account)
+    account.create_account()
+    write_accounts_file(account)
 
-def displayAll():
+def write_account():
     file = pathlib.Path("accounts.data")
     if file.exists ():
         infile = open('accounts.data', 'rb')
@@ -65,7 +65,7 @@ def displayAll():
         print("No records to display")
         
 
-def displaySp(num): 
+def display_sp(accNo): 
     file = pathlib.Path("accounts.data")
     if file.exists ():
         infile = open('accounts.data', 'rb')
@@ -73,15 +73,15 @@ def displaySp(num):
         infile.close()
         found = False
         for item in mylist:
-            if item.accNo == num:
+            if item.accNo == accNo:
                 print("Your account Balance is = ", item.deposit)
                 found = True
     else:
         print("No records to Search")
     if not found :
-        print("No existing record with this number")
+        print("No existing record with this accNober")
 
-def depositAndWithdraw(num1, num2): 
+def deposit_and_withdraw(accNo1, accNo2): 
     file = pathlib.Path("accounts.data")
     if file.exists ():
         infile = open('accounts.data', 'rb')
@@ -89,12 +89,12 @@ def depositAndWithdraw(num1, num2):
         infile.close()
         os.remove('accounts.data')
         for item in mylist :
-            if item.accNo == num1:
-                if num2 == 1:
+            if item.accNo == accNo1:
+                if accNo2 == 1:
                     amount = int(input("Enter the amount to deposit : "))
                     item.deposit += amount
                     print("Your account is updated")
-                elif num2 == 2:
+                elif accNo2 == 2:
                     amount = int(input("Enter the amount to withdraw : "))
                     if amount <= item.deposit:
                         item.deposit -=amount
@@ -108,7 +108,7 @@ def depositAndWithdraw(num1, num2):
     outfile.close()
     os.rename('newaccounts.data', 'accounts.data')
 
-def deleteAccount(num):
+def delete_account(accNo):
     file = pathlib.Path("accounts.data")
     if file.exists ():
         infile = open('accounts.data', 'rb')
@@ -116,7 +116,7 @@ def deleteAccount(num):
         infile.close()
         newlist = []
         for item in oldlist:
-            if item.accNo != num:
+            if item.accNo != accNo:
                 newlist.append(item)
         os.remove('accounts.data')
         outfile = open('newaccounts.data', 'wb')
@@ -124,7 +124,7 @@ def deleteAccount(num):
         outfile.close()
         os.rename('newaccounts.data', 'accounts.data')
      
-def modifyAccount(num):
+def modify_account(accNo):
     file = pathlib.Path("accounts.data")
     if file.exists ():
         infile = open('accounts.data', 'rb')
@@ -132,7 +132,7 @@ def modifyAccount(num):
         infile.close()
         os.remove('accounts.data')
         for item in oldlist:
-            if item.accNo == num:
+            if item.accNo == accNo:
                 item.name = input("Enter the Account Holder Name : ")
                 item.type = input("Enter the Account Type (C/S) : ")
                 item.deposit = int(input("Enter the Amount : "))
@@ -142,7 +142,7 @@ def modifyAccount(num):
         outfile.close()
         os.rename('newaccounts.data', 'accounts.data')
   
-def writeAccountsFile(account): 
+def write_accounts_file(account): 
     
     file = pathlib.Path("accounts.data")
     if file.exists ():
@@ -158,7 +158,7 @@ def writeAccountsFile(account):
     outfile.close()
     os.rename('newaccounts.data', 'accounts.data')
 ch= ''
-num= 0
+accNo= 0
 intro()
 
 while ch != 8:
@@ -174,24 +174,24 @@ while ch != 8:
     print("\tSelect Your Option from 1 to 8")
     ch = input()
     if ch == '1':
-        writeAccount()
+        write_account()
     elif ch =='2':
-        num = int(input("\tEnter The account No. : "))
-        depositAndWithdraw(num, 1)
+        accNo = int(input("\tEnter The account No. : "))
+        deposit_and_withdraw(accNo, 1)
     elif ch == '3':
-        num = int(input("\tEnter The account No. : "))
-        depositAndWithdraw(num, 2)
+        accNo = int(input("\tEnter The account No. : "))
+        deposit_and_withdraw(accNo, 2)
     elif ch == '4':
-        num = int(input("\tEnter The account No. : "))
-        displaySp(num)
+        accNo = int(input("\tEnter The account No. : "))
+        display_sp(accNo)
     elif ch == '5':
-        displayAll();
+        write_account();
     elif ch == '6':
-        num =int(input("\tEnter The account No. : "))
-        deleteAccount(num)
+        accNo =int(input("\tEnter The account No. : "))
+        delete_account(accNo)
     elif ch == '7':
-        num = int(input("\tEnter The account No. : "))
-        modifyAccount(num)
+        accNo = int(input("\tEnter The account No. : "))
+        modify_account(accNo)
     elif ch == '8':
         print("\tThanks for using bank managemnt system")
         break
