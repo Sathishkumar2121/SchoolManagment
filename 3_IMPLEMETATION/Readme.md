@@ -2,26 +2,26 @@ import pickle
 import os
 import pathlib
 class Account:
-    accNo = 0
+    acc_no = 0
     name = ''
     deposit=0
     type = ''
     
     def create_account(self):
-        self.accNo= int(input("Enter the account no : "))
+        self.acc_no= int(input("Enter the account no : "))
         self.name = input("Enter the account holder name : ")
         self.type = input("Ente the type of account [C/S] : ")
         self.deposit = int(input("Enter The Initial amount(minimum 500 for Saving and 1000 for current: "))
         print("\n\nCongrats! New Account Created")
     
     def show_account(self):
-        print("Account accNober : ", self.accNo)
+        print("Account acc_nober : ", self.acc_no)
         print("Account Holder Name : ", self.name)
         print("Type of Account", self.type)
         print("Balance : ", self.deposit)
     
     def modify_account(self):
-        print("Account accNober : ", self.accNo)
+        print("Account acc_nober : ", self.acc_no)
         self.name = input("Modify Account Holder Name :")
         self.type = input("Modify type of Account :")
         self.deposit = int(input("Modify Balance :"))
@@ -33,10 +33,10 @@ class Account:
         self.deposit -= amount
     
     def report(self):
-        print(self.accNo, " ", self.name , " ",self.type, " ", self.deposit)
+        print(self.acc_no, " ", self.name , " ",self.type, " ", self.deposit)
     
     def get_account_no(self):
-        return self.accNo
+        return self.acc_no
     def get_acccount_holder_name(self):
         return self.name
     def get_account_type(self):
@@ -59,13 +59,13 @@ def write_account():
         infile = open('accounts.data', 'rb')
         mylist = pickle.load(infile)
         for item in mylist :
-            print(item.accNo, " ", item.name, " ", item.type, " ", item.deposit )
+            print(item.acc_no, " ", item.name, " ", item.type, " ", item.deposit )
         infile.close()
     else :
         print("No records to display")
         
 
-def display_sp(accNo): 
+def display_sp(acc_no): 
     file = pathlib.Path("accounts.data")
     if file.exists ():
         infile = open('accounts.data', 'rb')
@@ -73,15 +73,15 @@ def display_sp(accNo):
         infile.close()
         found = False
         for item in mylist:
-            if item.accNo == accNo:
+            if item.acc_no == acc_no:
                 print("Your account Balance is = ", item.deposit)
                 found = True
     else:
         print("No records to Search")
     if not found :
-        print("No existing record with this accNober")
+        print("No existing record with this acc_nober")
 
-def deposit_and_withdraw(accNo1, accNo2): 
+def deposit_and_withdraw(acc_no1, acc_no2): 
     file = pathlib.Path("accounts.data")
     if file.exists ():
         infile = open('accounts.data', 'rb')
@@ -89,12 +89,12 @@ def deposit_and_withdraw(accNo1, accNo2):
         infile.close()
         os.remove('accounts.data')
         for item in mylist :
-            if item.accNo == accNo1:
-                if accNo2 == 1:
+            if item.acc_no == acc_no1:
+                if acc_no2 == 1:
                     amount = int(input("Enter the amount to deposit : "))
                     item.deposit += amount
                     print("Your account is updated")
-                elif accNo2 == 2:
+                elif acc_no2 == 2:
                     amount = int(input("Enter the amount to withdraw : "))
                     if amount <= item.deposit:
                         item.deposit -=amount
@@ -108,7 +108,7 @@ def deposit_and_withdraw(accNo1, accNo2):
     outfile.close()
     os.rename('newaccounts.data', 'accounts.data')
 
-def delete_account(accNo):
+def delete_account(acc_no):
     file = pathlib.Path("accounts.data")
     if file.exists ():
         infile = open('accounts.data', 'rb')
@@ -116,7 +116,7 @@ def delete_account(accNo):
         infile.close()
         newlist = []
         for item in oldlist:
-            if item.accNo != accNo:
+            if item.acc_no != acc_no:
                 newlist.append(item)
         os.remove('accounts.data')
         outfile = open('newaccounts.data', 'wb')
@@ -124,7 +124,7 @@ def delete_account(accNo):
         outfile.close()
         os.rename('newaccounts.data', 'accounts.data')
      
-def modify_account(accNo):
+def modify_account(acc_no):
     file = pathlib.Path("accounts.data")
     if file.exists ():
         infile = open('accounts.data', 'rb')
@@ -132,7 +132,7 @@ def modify_account(accNo):
         infile.close()
         os.remove('accounts.data')
         for item in oldlist:
-            if item.accNo == accNo:
+            if item.acc_no == acc_no:
                 item.name = input("Enter the Account Holder Name : ")
                 item.type = input("Enter the Account Type (C/S) : ")
                 item.deposit = int(input("Enter the Amount : "))
@@ -158,7 +158,7 @@ def write_accounts_file(account):
     outfile.close()
     os.rename('newaccounts.data', 'accounts.data')
 ch= ''
-accNo= 0
+acc_no= 0
 intro()
 
 while ch != 8:
@@ -176,22 +176,22 @@ while ch != 8:
     if ch == '1':
         write_account()
     elif ch =='2':
-        accNo = int(input("\tEnter The account No. : "))
-        deposit_and_withdraw(accNo, 1)
+        acc_no = int(input("\tEnter The account No. : "))
+        deposit_and_withdraw(acc_no, 1)
     elif ch == '3':
-        accNo = int(input("\tEnter The account No. : "))
-        deposit_and_withdraw(accNo, 2)
+        acc_no = int(input("\tEnter The account No. : "))
+        deposit_and_withdraw(acc_no, 2)
     elif ch == '4':
-        accNo = int(input("\tEnter The account No. : "))
-        display_sp(accNo)
+        acc_no = int(input("\tEnter The account No. : "))
+        display_sp(acc_no)
     elif ch == '5':
         write_account();
     elif ch == '6':
-        accNo =int(input("\tEnter The account No. : "))
-        delete_account(accNo)
+        acc_no =int(input("\tEnter The account No. : "))
+        delete_account(acc_no)
     elif ch == '7':
-        accNo = int(input("\tEnter The account No. : "))
-        modify_account(accNo)
+        acc_no = int(input("\tEnter The account No. : "))
+        modify_account(acc_no)
     elif ch == '8':
         print("\tThanks for using bank managemnt system")
         break
