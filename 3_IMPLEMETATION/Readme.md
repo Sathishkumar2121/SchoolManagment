@@ -11,7 +11,7 @@ class Account:
     type = ''
 
     def create_account(self):
-	    """it is used to create an account"""
+        """it is used to create an account"""
         self.acc_no = int(input("Enter the account no : "))
         self.name = input("Enter the account holder name : ")
         self.type = input("Ente the type of account [C/S] : ")
@@ -20,63 +20,63 @@ class Account:
         print("\n\nCongrats! New Account Created")
 
     def show_account(self):
-		"""it is used to show an account details"""
+        """it is used to show an account details"""
         print("Account acc_number : ", self.acc_no)
         print("Account Holder Name : ", self.name)
         print("Type of Account", self.type)
         print("Balance : ", self.deposit)
 
     def modify_account(self):
-		"""it is used to modify an account"""
+        """it is used to modify an account"""
         print("Account acc_number : ", self.acc_no)
         self.name = input("Modify Account Holder Name :")
         self.type = input("Modify type of Account :")
         self.deposit = int(input("Modify Balance :"))
 
     def deposit_amount(self, amount):
-		"""it is used to deposit an account"""
+        """it is used to deposit an account"""
         self.deposit += amount
 
     def withdraw_amount(self, amount):
-		"""it is used to withdraw an account"""
+        """it is used to withdraw an account"""
         self.deposit -= amount
 
     def report(self):
-		"""it is used to report an account"""
+        """it is used to report an account"""
         print(self.acc_no, " ", self.name, " ", self.type, " ", self.deposit)
 
     def get_account_no(self):
-		"""it is used to get an account"""
+        """it is used to get an account"""
         return self.acc_no
 
     def get_acccount_holder_name(self):
-		"""it is used to get an account holder name"""
+        """it is used to get an account holder name"""
         return self.name
 
     def get_account_type(self):
-		"""it is used to get an account type"""
+        """it is used to get an account type"""
         return self.type
 
     def get_deposit(self):
-		"""it is used to get an deposit"""
+        """it is used to get an deposit"""
         return self.deposit
 
 
 def intro():
-	"""it is used to INTRO"""
+    """it is used to INTRO"""
     print("\t\t\t\t\tBANK MANAGEMENT SYSTEM developed by SATHISH")
     input()
 
 
 def write_account():
-	"""it is used to get account details"""
+    """it is used to get account details"""
     account = Account()
     account.create_account()
     write_accounts_file(account)
 
 
 def write_account():
-	"""it is used to write an account"""
+    """it is used to write an account"""
     file = pathlib.Path("accounts.data")
     if file.exists():
         infile = open('accounts.data', 'rb')
@@ -89,7 +89,7 @@ def write_account():
 
 
 def display_sp(acc_no):
-	"""it is used to display"""
+    """it is used to display"""
     file = pathlib.Path("accounts.data")
     found = False
     if file.exists():
@@ -108,7 +108,7 @@ def display_sp(acc_no):
 
 
 def deposit_and_withdraw(acc_no1, acc_no2):
-	"""it is used to withdraw and deposit"""
+    """it is used to withdraw and deposit"""
     file = pathlib.Path("accounts.data")
     if file.exists():
         infile = open('accounts.data', 'rb')
@@ -137,7 +137,7 @@ def deposit_and_withdraw(acc_no1, acc_no2):
 
 
 def delete_account(acc_no):
-	"""it is used to delete an account"""
+    """it is used to delete an account"""
     file = pathlib.Path("accounts.data")
     if file.exists():
         infile = open('accounts.data', 'rb')
@@ -155,7 +155,7 @@ def delete_account(acc_no):
 
 
 def modify_account(acc_no):
-	"""it is used to modify """
+    """it is used to modify """
     file = pathlib.Path("accounts.data")
     if file.exists():
         infile = open('accounts.data', 'rb')
@@ -175,7 +175,7 @@ def modify_account(acc_no):
 
 
 def write_accounts_file(account):
-	"""it is used to write files of an account"""
+    """it is used to write files of an account"""
     file = pathlib.Path("accounts.data")
     if file.exists():
         infile = open('accounts.data', 'rb')
